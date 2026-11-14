@@ -39,6 +39,7 @@ def empilha(P: Pilha, x: int):
     if not pilha_cheia(P):
         P.topo = P.topo + 1
         P.elem[P.topo] = x
+        return True
 
 
 # Retira um valor do topo da Pilha e o devolve;
