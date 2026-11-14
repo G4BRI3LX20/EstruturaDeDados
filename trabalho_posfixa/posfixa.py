@@ -4,12 +4,16 @@
 # Alunos: Lucas Santana Zanzim RA: 143393
 #         Gabriel Lopes;
 
+# Importa as funcões de pilhas para fazer as contas da expressões;
 from pilhas import Pilha, inicializa_pilha, pilha_vazia, empilha, desempilha
 
 
-# Divisão inteira com resultado apenas da parte inteira;
+# Divisão inteira com resultado apenas da parte inteira
+# Descobre se o resultado deve ser negativo, divide os valores absolutos
+# e Reaplica o sinal;
 def divide(a: int, b: int) -> int:
     negativo = (a < 0) != (b < 0)
+    
     if a < 0:
         a = -a
     if b < 0:
@@ -17,6 +21,7 @@ def divide(a: int, b: int) -> int:
     q = a // b
     if negativo:
         q = -q
+        
     return q
 
 
@@ -28,18 +33,27 @@ def avalia(expressao: str):
     numero = 0
     lendo_numero = False
 
+# Dentro do laço será feito todo o cálculo da expressão por completo;
     for c in expressao:
+        # Converte os caracteres nos valores respectivos;
+        # Multiplicar o valor por 10 desloca o que já foi lido uma casa para a esquerda;
         if "0" <= c <= "9":
             numero = numero * 10 + (ord(c) - ord("0"))
             lendo_numero = True
-            
+        
+        # Ponto marca o fim do operando, o número pronto é empilhado e as variáveis voltam
+        # ao estado inicial;
         elif c == ".":
+            # Evita empilhar um zero falso se aparecer um ponto sem um número antes dele
+            # empilha devolve False se a pilha entiver cheia, e nesse caso o laço para com um erro;
             if lendo_numero:
                 if not empilha(P, numero):
                     return False, "Erro: pilha cheia"
             numero = 0
             lendo_numero = False
             
+        # Um operador precisa de dois operandos, se a pilha estiver vazia em qualquer uma
+        # das retiradas, falta operando e a função encerra com erro;
         elif c in "+-*/":
             if pilha_vazia(P):
                 return False, "Erro: faltando operando"
@@ -49,6 +63,7 @@ def avalia(expressao: str):
                 return False, "Erro: faltando operando"
             a = desempilha(P)
 
+            # Cálculo dos valores;
             if c == "+":
                 r = a + b
             elif c == "-":
@@ -61,16 +76,19 @@ def avalia(expressao: str):
                 r = divide(a, b)
             empilha(P, r)
 
+    # Verificação final
+    # Se a pilha acabou vazia, então faltou operando;
     if pilha_vazia(P):
         return False, "Erro: faltando operando"
     resultado = desempilha(P)
+    # Se depois de retirar o resultado, ainda sobrou algo, então faltou operador;
     if not pilha_vazia(P):
         return False, "Erro: faltando operador"
     return True, resultado
 
 
 def main():
-# Lê o arquivo de teste;
+# Pede o arquivo de teste;
     nome = input("Digite o nome do arquivo: ").strip()
     try:
         arquivo = open(nome, "r")

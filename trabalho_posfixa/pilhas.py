@@ -23,27 +23,25 @@ def inicializa_pilha(P: Pilha) -> None:
     P.topo = -1
 
 
-# Verifica se a pilha está vazia ou não, retornando Verdadeiro ou Falso;
+# Verifica se a pilha está vazia ou não, retornando True ou False;
 def pilha_vazia(P: Pilha) -> bool:
     return P.topo == -1
 
 
-# Verifica se a pilha está cheia ou não, retornando Verdadeiro ou Falso;
+# Verifica se a pilha está cheia ou não, retornando True ou False;
 def pilha_cheia(P: Pilha) -> bool:
     return P.topo == P.TamMax
 
 
 # Coloca um novo valor no topo da Pilha;
-# Retorna True se o elemento foi empilhado e False se a pilha estava cheia (nada é alterado);
-def empilha(P: Pilha, x: int) -> bool:
+# Retorna True se o elemento foi empilhado;
+def empilha(P: Pilha, x: int):
     if not pilha_cheia(P):
         P.topo = P.topo + 1
         P.elem[P.topo] = x
-        return True
 
 
 # Retira um valor do topo da Pilha e o devolve;
-# Retorna None se a pilha estava vazia (nada é alterado);
 def desempilha(P: Pilha):
     if not pilha_vazia(P):
         x = P.elem[P.topo]
@@ -52,7 +50,7 @@ def desempilha(P: Pilha):
 
 
 # Retorna o valor que está no topo da Pilha, sem removê-lo;
-# Retorna None se a pilha estiver vazia;
+# Retorna erro se a pilha estiver vazia;
 def elemento_do_topo(P: Pilha):
     if not pilha_vazia(P):
         return P.elem[P.topo]
