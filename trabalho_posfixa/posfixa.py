@@ -22,6 +22,7 @@ def divide(a: int, b: int) -> int:
 
 # Avalia a expressão posfixa. Retorna True, resultado, ou False, mensagem de erro;
 def avalia(expressao: str):
+    # Cria a pilha e duas variáveis auxiliares;
     P = Pilha()
     inicializa_pilha(P)
     numero = 0
@@ -31,16 +32,19 @@ def avalia(expressao: str):
         if "0" <= c <= "9":
             numero = numero * 10 + (ord(c) - ord("0"))
             lendo_numero = True
+            
         elif c == ".":
             if lendo_numero:
                 if not empilha(P, numero):
                     return False, "Erro: pilha cheia"
             numero = 0
             lendo_numero = False
+            
         elif c in "+-*/":
             if pilha_vazia(P):
                 return False, "Erro: faltando operando"
             b = desempilha(P)
+            
             if pilha_vazia(P):
                 return False, "Erro: faltando operando"
             a = desempilha(P)
@@ -66,6 +70,7 @@ def avalia(expressao: str):
 
 
 def main():
+# Lê o arquivo de teste;
     nome = input("Digite o nome do arquivo: ").strip()
     try:
         arquivo = open(nome, "r")
@@ -73,6 +78,7 @@ def main():
         print("Não foi possível abrir o arquivo:", nome)
         return
 
+# Separa as expressões linha por linha e fornece o resultado das expressões;
     n = 0
     for linha in arquivo:
         linha = linha.strip()
