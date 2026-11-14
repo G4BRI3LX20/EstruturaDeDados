@@ -4,7 +4,7 @@
 # Alunos: Lucas Santana Zanzim RA: 143393
 #         Gabriel Lopes;
 
-# Importa as funcões de pilhas para fazer as contas da expressões;
+# Importa as funções de pilhas para fazer as contas da expressões;
 from pilhas import Pilha, inicializa_pilha, pilha_vazia, empilha, desempilha
 
 
@@ -45,7 +45,7 @@ def avalia(expressao: str):
         # ao estado inicial;
         elif c == ".":
             # Evita empilhar um zero falso se aparecer um ponto sem um número antes dele
-            # empilha devolve False se a pilha entiver cheia, e nesse caso o laço para com um erro;
+            # empilha devolve False se a pilha estiver cheia, e nesse caso o laço para com um erro;
             if lendo_numero:
                 if not empilha(P, numero):
                     return False, "Erro: pilha cheia"
