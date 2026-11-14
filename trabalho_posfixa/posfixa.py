@@ -85,7 +85,7 @@ def main():
         if linha == "":
             continue
         n = n + 1
-        saida = avalia(linha)
+        saida = avalia(linha)[1]
         print("Expressão", n, ":", saida)
     arquivo.close()
 
